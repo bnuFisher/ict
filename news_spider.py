@@ -55,7 +55,7 @@ class spider(object):
         title = re.search('<title>(.*?)- 信息化动态 - 中国教育信息化网</title>',html,re.S).group(1)
         article = re.search('<div class="article">(.*?)<div class="share clearfix">', html, re.S).group(1)
         content = re.findall('>(.*?)<', article, re.S)
-        content_string = ''.join(i.strip() for seq in content for i in seq) #哭，这个bug终于解决了！
+        content_string = ''.join(i.strip() for seq in content for i in seq) 
         year = re.search('/n2/n(\d{4})',url,re.S).group(1)
         newsdict['年份'] = year
         newsdict['标题'] = title
@@ -72,7 +72,7 @@ if __name__=='__main__':
 
     first_page = 'http://www.ict.edu.cn/news/n2/index.shtml'
 
-    all_pages=eduinfo.changepages(first_page,311) #page=311
+    all_pages=eduinfo.changepages(first_page,301) #page=你需要定位的页码
 
 
     for page in all_pages:
@@ -82,7 +82,6 @@ if __name__=='__main__':
         except:
             print('NO! Unaccessable...')
             time.sleep(5)
-            continue
         links = eduinfo.urls_in_one_page(html)
         url_list.extend(links)
         time.sleep(random.randint(1, 10))
@@ -96,14 +95,14 @@ if __name__=='__main__':
     count=0
     total_news_info=[]
 
-    for url in open('news_url.txt'):
+    for url in open('news_url.txt'):   
         print('正在处理第%s条新闻： ' %count + url)
         try:
             news = eduinfo.get_news_from_page(url)
             count += 1
             total_news_info.append(news)
         except:
-            print('ATTENTION! This is not available...')
+            print('ATTENTION! It is not available...')
 
 
         time.sleep(random.randint(1, 10))
@@ -112,8 +111,9 @@ if __name__=='__main__':
 
     headers = ['年份', '标题', '新闻内容', '链接']
 
-
-    with open('news_extend.csv', 'a', newline='',encoding='gb18030') as f2:
+	#建议另建一个文本文件，保存第一次爬去时失效的链接，稍后再爬一次。
+	
+    with open('news_extend.csv', 'a', newline='',encoding='gb18030') as f2: #数据量大时，建议写一个loop分批次写入
         f_csv = csv.DictWriter(f2, headers)
         f_csv.writeheader()
         f_csv.writerows(total_news_info)
