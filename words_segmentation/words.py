@@ -6,7 +6,7 @@ import re
 import jieba
 import jieba.analyse
 import time
-from gensim.models import word2vec as word
+from gensim.models import word2vec
 import logging
 
 
@@ -93,8 +93,8 @@ def news_cut_into_file(list_news,file3):
 
 #以下词向量训练及相关词计算
 
-# sentences = word.Text8Corpus('news_cut.txt')  # 加载语料，
-# model = word.Word2Vec(sentences, size=300)  #进行词向量训练,时间取决于语料量
+# sentences = word2vec.Text8Corpus('news_cut.txt')  # 加载语料，
+# model = word2vec.Word2Vec(sentences, size=300)  #进行词向量训练,时间取决于语料量
 
 # words = model.most_similar("智慧教育", topn=20)  #举例，计算“智慧教育”的相关词
 
