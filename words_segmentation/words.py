@@ -45,7 +45,7 @@ def keywords_news(file1,file2,year=2016):
 
     with open(file2,'a',encoding='gb18030') as f2:
         f2.writelines('keywords_%s\n'%str(year))
-        for i in list1[:20]: #保留前30位高频关键词
+        for i in list1[:20]: #保留前20位高频关键词
             i=str(i)
             f2.writelines(i)
             f2.writelines('\n')
