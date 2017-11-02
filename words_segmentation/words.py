@@ -25,13 +25,9 @@ def keywords_news(file1,file2,year=2016):
         if len(line)>0:
             count +=1
             keys=[]
-            tags = jieba.analyse.extract_tags(line.strip(),withWeight=False,topK=10)
+            tags = jieba.analyse.extract_tags(line.strip(),withWeight=False,topK=10,allowPOS=('n','nz','vd','x','l','d','q'))
             for i in tags:
-                if re.search('[每所附这第届国省州市区县镇 \
-                       李张陈王赵钱孙周陆刘徐许朱沈苏俞顾贾胡吴霍谢郑孙杨柳侯黄林何马郭罗梁宋唐冯于董萧曹蔡袁邓卢丁宁叶颜静伟锋毛翁戴蒋蓉凯曾傅明波钟春秦 \
-                       魏吕瞿谭邱石范田易方夏汪赖江庄鲍游翁军温萍龙宝奇闵莉陶杰雨孟牛剑阳康梅谈费姚葛皇武该洪甘十韩昌凌东涛鲁哥俊骏君潘邹彭鹏雪峰隆兰耀尤邢孔包宏桥南北皖 \
-                       京津沪杭浙粤辽吉赣陇港澳湾珠了我你他她它]',i) == None: #即使有停用词表，一些人名、地名和虚词仍然不能准确地被过滤，因此我加了一重过滤
-                    keys.append(i.strip())
+                keys.append(i.strip())
             lis=keys[:6]
             for i in lis:
                 if i not in dic:
